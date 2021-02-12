@@ -1,4 +1,4 @@
-package com.codmind.api_order.Dtos;
+package com.codmind.api_order.dtos;
 import lombok.*;
 
 import java.util.List;
@@ -13,4 +13,5 @@ public class OrderDTO {
     private String regDate;
     private List<OrderLineDTO> lines;
     private Double total;
+    private UserDTO user;
 }

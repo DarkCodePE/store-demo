@@ -1,20 +1,21 @@
 package com.codmind.api_order.services;
 
-import com.codmind.api_order.Dtos.OrderDTO;
 import com.codmind.api_order.entity.Order;
 import com.codmind.api_order.entity.OrderLine;
 import com.codmind.api_order.entity.Product;
+import com.codmind.api_order.entity.User;
 import com.codmind.api_order.exceptions.DataServiceException;
 import com.codmind.api_order.exceptions.GeneralServiceException;
 import com.codmind.api_order.exceptions.ValidateServiceException;
 import com.codmind.api_order.repository.OrderLineRepository;
 import com.codmind.api_order.repository.OrderRepository;
 import com.codmind.api_order.repository.ProductRepository;
+import com.codmind.api_order.security.UserPrincipal;
 import com.codmind.api_order.validator.OrderValidator;
-import com.codmind.api_order.validator.ProductValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +59,10 @@ public class OrderService {
     public Order createOrUpdate(Order order){
         try{
             OrderValidator.createOrUpdate(order);
+
+            /*UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();*/
+            User user = UserPrincipal.getAuthUser();
+
             double total = 0;
             for(OrderLine line : order.getLines()) {
                 Product product = productRepository.findById(line.getProduct().getId())
@@ -70,6 +75,7 @@ public class OrderService {
             order.setTotal(total);
             order.getLines().forEach(line -> line.setOrder(order));
             if (order.getId() == null){
+                order.setUser(user);
                 order.setRegDate(LocalDateTime.now());
                 Order newOrder = orderRepository.save(order);
                 return newOrder;

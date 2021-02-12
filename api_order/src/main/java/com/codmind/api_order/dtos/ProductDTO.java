@@ -1,10 +1,9 @@
-package com.codmind.api_order.Dtos;
+package com.codmind.api_order.dtos;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 @Getter
 @Setter
 @Builder

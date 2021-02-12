@@ -30,6 +30,11 @@ public class Order {
     @Column(name = "total", nullable = false)
     private Double total;
 
+    @ManyToOne
+    //CUANDO SE HAGA UN UPDATE ESTE CAMPO NO SE ENVIE
+    @JoinColumn(name = "fk_user", updatable = false)
+    private User user;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

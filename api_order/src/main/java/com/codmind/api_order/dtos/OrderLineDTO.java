@@ -1,7 +1,5 @@
-package com.codmind.api_order.Dtos;
+package com.codmind.api_order.dtos;
 
-import com.codmind.api_order.entity.Order;
-import com.codmind.api_order.entity.Product;
 import lombok.*;
 
 @Getter

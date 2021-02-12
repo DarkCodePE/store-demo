@@ -1,6 +1,6 @@
 package com.codmind.api_order.controllers;
 
-import com.codmind.api_order.Dtos.OrderDTO;
+import com.codmind.api_order.dtos.OrderDTO;
 import com.codmind.api_order.converters.OrderConverter;
 import com.codmind.api_order.entity.Order;
 import com.codmind.api_order.services.OrderService;
@@ -17,7 +17,8 @@ import java.util.List;
 @RestController
 public class OrderController {
 
-    private OrderConverter orderConverter = new OrderConverter();
+    @Autowired
+    private OrderConverter orderConverter;
     @Autowired
     private OrderService orderService;
 
