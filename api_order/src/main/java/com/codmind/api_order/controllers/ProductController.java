@@ -1,6 +1,6 @@
 package com.codmind.api_order.controllers;
 
-import com.codmind.api_order.Dtos.ProductDTO;
+import com.codmind.api_order.dtos.ProductDTO;
 import com.codmind.api_order.converters.ProductConverter;
 import com.codmind.api_order.entity.Product;
 import com.codmind.api_order.services.ProductService;
@@ -20,7 +20,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    private ProductConverter productConverter = new ProductConverter();
+    @Autowired
+    private ProductConverter productConverter;
 
     @GetMapping("/products")
     //Paginate
